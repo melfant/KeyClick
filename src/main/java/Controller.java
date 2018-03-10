@@ -1,5 +1,6 @@
 import javafx.animation.KeyFrame;
 
+import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
@@ -17,7 +18,6 @@ public class Controller {
     private Integer keyClickCount = 0;
     private boolean counterInWorkFlag = false;
     private boolean counterReadyToStart = true;
-    private IntegerProperty timeSeconds = new SimpleIntegerProperty(settings.getTimeInSeconds());
 
 
     @FXML
@@ -37,22 +37,22 @@ public class Controller {
     public void keyPressed(KeyEvent keyEvent) {
         if (tabKeyClick.isSelected() == true) {
             if (keyEvent.getCode() == settings.getKeyCode()) {
-                if(counterInWorkFlag == false && counterReadyToStart == true) {
+                if (counterInWorkFlag == false && counterReadyToStart == true) {
                     counterInWorkFlag = true;
                     counterReadyToStart = false;
 
                     lbPressKeyToStart.setVisible(false);
 
-                    Timeline timer = new Timeline(new KeyFrame(Duration.seconds(settings.getTimeInSeconds()), ae ->{
-                        //todo: progress bar
-                        pbCounter.progressProperty().bind(timeSeconds.divide(settings.getTimeInSeconds()*1.0));
-                    }));
 
-                    timer.setOnFinished(ae -> {
-                        counterInWorkFlag = false;
-                        bnCounterReset.setVisible(true);
-                        pbCounter.setVisible(false);
-                    });
+                    Timeline timer = new Timeline(
+                            new KeyFrame(Duration.ZERO, new KeyValue(pbCounter.progressProperty(), 0)),
+                            new KeyFrame(Duration.seconds(settings.getTimeInSeconds()), ae -> {
+                                //on finish
+                                counterInWorkFlag = false;
+                                bnCounterReset.setVisible(true);
+
+                            }, new KeyValue(pbCounter.progressProperty(), 1))
+                    );
 
                     keyClickCount++;
                     lbCounter.setText("Count: " + keyClickCount.toString());
@@ -60,8 +60,7 @@ public class Controller {
                     pbCounter.setVisible(true);
 
                     timer.play();
-                }
-                else if (counterInWorkFlag == true){
+                } else if (counterInWorkFlag == true) {
                     keyClickCount++;
                     lbCounter.setText("Count: " + keyClickCount.toString());
                 }
@@ -77,5 +76,6 @@ public class Controller {
         keyClickCount = 0;
         lbCounter.setText("Count: " + keyClickCount.toString());
         tabPane.requestFocus();
+        pbCounter.setVisible(false);
     }
 }
