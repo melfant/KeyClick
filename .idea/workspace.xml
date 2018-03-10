@@ -2,17 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="970161b2-08c3-48e8-9b1e-b1f45b1dd103" name="Default" comment="">
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ChangeKeyboardKeyController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/java/ChangeTimerController.java" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/ChangeKeyboardKey.fxml" />
-      <change beforePath="" afterPath="$PROJECT_DIR$/src/main/resources/ChangeTimer.fxml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Controller.java" afterPath="$PROJECT_DIR$/src/main/java/MainController.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/Settings.java" afterPath="$PROJECT_DIR$/src/main/java/Settings.java" />
-      <change beforePath="$PROJECT_DIR$/src/main/resources/KeyClick.fxml" afterPath="$PROJECT_DIR$/src/main/resources/KeyClick.fxml" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Controller.class" afterPath="" />
-      <change beforePath="$PROJECT_DIR$/target/classes/KeyClick.fxml" afterPath="$PROJECT_DIR$/target/classes/KeyClick.fxml" />
-      <change beforePath="$PROJECT_DIR$/target/classes/Settings.class" afterPath="$PROJECT_DIR$/target/classes/Settings.class" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/ChangeTimerController.java" afterPath="$PROJECT_DIR$/src/main/java/ChangeTimerController.java" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/MainController.java" afterPath="$PROJECT_DIR$/src/main/java/MainController.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <ignored path="$PROJECT_DIR$/target/" />
@@ -38,11 +29,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="MainController.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="MainController.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/main/java/MainController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="75" column="22" lean-forward="true" selection-start-line="75" selection-start-column="22" selection-end-line="75" selection-end-column="22" />
+            <state relative-caret-position="589">
+              <caret line="134" column="21" lean-forward="false" selection-start-line="134" selection-start-column="21" selection-end-line="134" selection-end-column="21" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2826#2827#0" expanded="true" />
@@ -52,11 +43,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="ChangeTimerController.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="ChangeTimerController.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/java/ChangeTimerController.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="544">
-              <caret line="42" column="22" lean-forward="false" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
+            <state relative-caret-position="340">
+              <caret line="29" column="40" lean-forward="true" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -131,6 +122,7 @@
       <find>keyClickCount</find>
       <find>settin</find>
       <find>ke</find>
+      <find>pbCounter</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -153,9 +145,9 @@
         <option value="$PROJECT_DIR$/src/main/java/Settings.java" />
         <option value="$PROJECT_DIR$/src/main/java/ChangeKeyboardKeyController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/ChangeTimer.fxml" />
-        <option value="$PROJECT_DIR$/src/main/java/ChangeTimerController.java" />
         <option value="$PROJECT_DIR$/src/main/resources/KeyClick.fxml" />
         <option value="$PROJECT_DIR$/src/main/java/MainController.java" />
+        <option value="$PROJECT_DIR$/src/main/java/ChangeTimerController.java" />
       </list>
     </option>
   </component>
@@ -409,12 +401,12 @@
       <workItem from="1520707587639" duration="1773000" />
       <workItem from="1520709394375" duration="1781000" />
       <workItem from="1520711495638" duration="1781000" />
-      <workItem from="1520713300919" duration="442000" />
+      <workItem from="1520713300919" duration="725000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="33282000" />
+    <option name="totallyTimeSpent" value="33565000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
@@ -968,16 +960,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/main/java/ChangeTimerController.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="544">
-          <caret line="42" column="22" lean-forward="false" selection-start-line="42" selection-start-column="22" selection-end-line="42" selection-end-column="22" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/main/resources/KeyClick.fxml">
       <provider editor-type-id="JavaFX-Scene-Builder">
         <state />
@@ -991,12 +973,22 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/java/MainController.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="75" column="22" lean-forward="true" selection-start-line="75" selection-start-column="22" selection-end-line="75" selection-end-column="22" />
+        <state relative-caret-position="589">
+          <caret line="134" column="21" lean-forward="false" selection-start-line="134" selection-start-column="21" selection-end-line="134" selection-end-column="21" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2826#2827#0" expanded="true" />
             <element signature="e#2863#2864#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/main/java/ChangeTimerController.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="340">
+          <caret line="29" column="40" lean-forward="true" selection-start-line="29" selection-start-column="40" selection-end-line="29" selection-end-column="40" />
+          <folding>
+            <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>

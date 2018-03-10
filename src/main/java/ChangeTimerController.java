@@ -21,11 +21,12 @@ public class ChangeTimerController {
 
     @FXML
     public void initialize(){
+
         tfTimer.textProperty().addListener((observable, oldValue, newValue) -> {
             if (!newValue.matches("\\d*")) {
                 tfTimer.setText(newValue.replaceAll("[^\\d]", ""));
             }
-            if(tfTimer.getText().equals("")){
+            if(tfTimer.getText().equals("") || tfTimer.getText().startsWith("0")){
                 bnSave.setDisable(true);
             }
             else{

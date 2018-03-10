@@ -133,7 +133,6 @@ public class MainController {
         stage.initOwner(
                 ((Node)actionEvent.getSource()).getScene().getWindow() );
         stage.show();
-        root.requestFocus();
     }
 
     //need refactoring into other layer
