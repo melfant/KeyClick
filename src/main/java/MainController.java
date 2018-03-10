@@ -10,6 +10,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
+import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Modality;
@@ -25,6 +26,7 @@ public class MainController {
     private Integer keyClickCount = 0;
     private boolean counterInWorkFlag = false;
     private boolean counterReadyToStart = true;
+    private Timeline timer;
 
     @FXML
     private Label lbCounter;
@@ -64,8 +66,11 @@ public class MainController {
 
                     lbPressKeyToStart.setVisible(false);
 
+                    if(timer != null){
+                        timer.stop();
+                    }
 
-                    Timeline timer = new Timeline(
+                    timer = new Timeline(
                             new KeyFrame(Duration.ZERO, new KeyValue(pbCounter.progressProperty(), 0)),
                             new KeyFrame(Duration.seconds(settings.getTimeInSeconds()), ae -> {
                                 //on finish
@@ -88,6 +93,7 @@ public class MainController {
                 }
             }
             else if (keyEvent.getCode() == KeyCode.ESCAPE && counterInWorkFlag == true){
+
                 counterResetService();
             }
         }
@@ -110,6 +116,7 @@ public class MainController {
         }
         stage.setScene(new Scene(root));
         stage.setTitle("Change key");
+        stage.getIcons().add(new Image("settingsIcon64.png"));
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(
                 ((Node)actionEvent.getSource()).getScene().getWindow() );
@@ -129,6 +136,7 @@ public class MainController {
         }
         stage.setScene(new Scene(root));
         stage.setTitle("Change timer");
+        stage.getIcons().add(new Image("settingsIcon64.png"));
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(
                 ((Node)actionEvent.getSource()).getScene().getWindow() );
@@ -144,6 +152,7 @@ public class MainController {
         keyClickCount = 0;
         lbCounter.setText("Count: " + keyClickCount.toString());
         tabPane.requestFocus();
+        pbCounter.setProgress(0);
         pbCounter.setVisible(false);
         lbPressToStop.setVisible(false);
     }
