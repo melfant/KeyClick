@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyPressed="#keyPressed" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Controller">
+  <tabs>
+    <Tab fx:id="tabKeyClick" text="KeyClick">
+      <content>
+        <AnchorPane fx:id="counterAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <ProgressBar fx:id="pbCounter" layoutY="24.0" prefHeight="18.0" prefWidth="263.0" progress="0.0" visible="false" AnchorPane.leftAnchor="200.0" AnchorPane.rightAnchor="200.0" AnchorPane.topAnchor="24.0" />
+                  <Label fx:id="lbPressKeyToStart" alignment="CENTER" layoutX="192.0" layoutY="34.0" prefHeight="17.0" prefWidth="186.0" text="Press key to start" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="24.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <Label fx:id="lbCounter" alignment="CENTER" layoutX="50.0" layoutY="90.0" prefHeight="33.0" prefWidth="115.0" text="Count: 0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="70.0">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                  </Label>
+                  <VBox alignment="CENTER" layoutX="250.0" layoutY="103.0" prefHeight="49.0" prefWidth="500.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
+                     <children>
+                        <Button fx:id="bnCounterReset" mnemonicParsing="false" onAction="#counterReset" prefHeight="25.0" prefWidth="72.0" text="Start over" visible="false" />
+                     </children></VBox>
+               </children></AnchorPane>
+      </content>
+    </Tab>
+    <Tab fx:id="tabSettings" text="Settings">
+      <content>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="lbKeyboardKey" layoutX="154.0" layoutY="43.0" prefHeight="17.0" prefWidth="85.0" text="Keyboard key" />
+                  <Button fx:id="btnSetKeyboardKey" layoutX="44.0" layoutY="39.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Set key" />
+                  <Button fx:id="btnSetTimer" layoutX="44.0" layoutY="78.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="72.0" text="Set timer" />
+                  <Label fx:id="lbTimer" layoutX="154.0" layoutY="82.0" prefHeight="17.0" prefWidth="85.0" text="5 seconds" />
+               </children></AnchorPane>
+      </content>
+    </Tab>
+  </tabs>
+</TabPane>
