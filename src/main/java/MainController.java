@@ -2,13 +2,20 @@ import javafx.animation.KeyFrame;
 
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
+import javafx.beans.property.adapter.JavaBeanObjectProperty;
+import javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
+import javafx.scene.control.TabPane;
+import javafx.scene.control.Tab;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.Button;
 
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
@@ -52,7 +59,24 @@ public class MainController {
     private Label lbPressToStop;
 
     @FXML
-    public void initialize(){
+    public void initialize() throws NoSuchMethodException {
+        lbKeyboardKey.textProperty().bind(
+                (
+                        new JavaBeanObjectPropertyBuilder<KeyCode>()
+                                .bean(settings)
+                                .name("keyCode")
+                                .build()
+                ).asString()
+        );
+
+        lbTimer.textProperty().bind(
+                (
+                        new JavaBeanIntegerPropertyBuilder()
+                                .bean(settings)
+                                .name("timeInSeconds")
+                                .build()
+                ).asString()
+        );
 
     }
 
@@ -66,7 +90,7 @@ public class MainController {
 
                     lbPressKeyToStart.setVisible(false);
 
-                    if(timer != null){
+                    if (timer != null) {
                         timer.stop();
                     }
 
@@ -91,8 +115,7 @@ public class MainController {
                     keyClickCount++;
                     lbCounter.setText("Count: " + keyClickCount.toString());
                 }
-            }
-            else if (keyEvent.getCode() == KeyCode.ESCAPE && counterInWorkFlag == true){
+            } else if (keyEvent.getCode() == KeyCode.ESCAPE && counterInWorkFlag == true) {
 
                 counterResetService();
             }
@@ -119,13 +142,14 @@ public class MainController {
         stage.getIcons().add(new Image("settingsIcon64.png"));
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(
-                ((Node)actionEvent.getSource()).getScene().getWindow() );
+                ((Node) actionEvent.getSource()).getScene().getWindow());
         stage.show();
         root.requestFocus();
     }
 
     @FXML
     public void changeTimer(ActionEvent actionEvent) {
+
         Stage stage = new Stage();
         Parent root = null;
         try {
@@ -135,16 +159,17 @@ public class MainController {
             e.printStackTrace();
         }
         stage.setScene(new Scene(root));
+
         stage.setTitle("Change timer");
         stage.getIcons().add(new Image("settingsIcon64.png"));
         stage.initModality(Modality.WINDOW_MODAL);
         stage.initOwner(
-                ((Node)actionEvent.getSource()).getScene().getWindow() );
+                ((Node) actionEvent.getSource()).getScene().getWindow());
         stage.show();
     }
 
     //need refactoring into other layer
-    private void counterResetService(){
+    private void counterResetService() {
         counterReadyToStart = true;
         counterInWorkFlag = false;
         lbPressKeyToStart.setVisible(true);
