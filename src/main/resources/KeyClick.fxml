@@ -31,7 +31,7 @@
                   </Label>
                   <VBox alignment="CENTER" layoutX="250.0" layoutY="103.0" prefHeight="49.0" prefWidth="500.0" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="120.0">
                      <children>
-                        <Button fx:id="bnCounterReset" mnemonicParsing="false" onAction="#counterReset" prefHeight="25.0" prefWidth="90.0" text="Start over" visible="false" />
+                        <Button fx:id="bnCounterReset" mnemonicParsing="false" onAction="#counterReset" prefHeight="25.0" prefWidth="90.0" text="Start again" visible="false" />
                      </children></VBox>
                </children></AnchorPane>
       </content>
