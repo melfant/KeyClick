@@ -9,13 +9,16 @@ public class Settings implements Serializable{
     private volatile static Settings settings;
 
     private static final KeyCode defaultKeyCode = KeyCode.SPACE;
-    private static final Integer defaultTimeInSeconds = 30;
+    private static final Integer defaultTimeInSeconds = 5;
+    private static final Integer defaultPeriodsNumber = 3;
 
     private KeyCode keyCode;
     private Integer timeInSeconds;
+    private Integer periodsNumber;
 
     private final PropertyChangeSupport timeInSecondsChangeSupport;
     private final PropertyChangeSupport keyCodeChangeSupport;
+    private final PropertyChangeSupport periodsNumberChangeSupport;
 
     public void setKeyCode(KeyCode keyCode) {
         KeyCode oldKeyCode = this.keyCode;
@@ -29,9 +32,16 @@ public class Settings implements Serializable{
         timeInSecondsChangeSupport.firePropertyChange("timeInSeconds", oldTimeInSeconds, timeInSeconds);
     }
 
+    public void setPeriodsNumber(Integer periodsNumber){
+        Integer oldPeriodsCount = this.periodsNumber;
+        this.periodsNumber = periodsNumber;
+        periodsNumberChangeSupport.firePropertyChange("periodsCount", oldPeriodsCount, periodsNumber);
+    }
+
     public void addPropertyChangeListener(PropertyChangeListener listener) {
         timeInSecondsChangeSupport.addPropertyChangeListener(listener);
         keyCodeChangeSupport.addPropertyChangeListener(listener);
+        periodsNumberChangeSupport.addPropertyChangeListener(listener);
     }
 
     public KeyCode getKeyCode() {
@@ -40,13 +50,18 @@ public class Settings implements Serializable{
     public Integer getTimeInSeconds() {
         return timeInSeconds;
     }
+    public Integer getPeriodsNumber(){
+        return  periodsNumber;
+    }
 
     private Settings(){
         this.keyCode = defaultKeyCode;
         this.timeInSeconds = defaultTimeInSeconds;
+        this.periodsNumber = defaultPeriodsNumber;
 
         this.timeInSecondsChangeSupport = new PropertyChangeSupport(this);
         this.keyCodeChangeSupport = new PropertyChangeSupport(this);
+        this.periodsNumberChangeSupport= new PropertyChangeSupport(this);
     }
 
     public static Settings getInstance(){

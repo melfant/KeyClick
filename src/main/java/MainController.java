@@ -3,7 +3,6 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
-import javafx.beans.property.adapter.JavaBeanObjectProperty;
 import javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -30,10 +29,13 @@ import java.io.IOException;
 public class MainController {
     Settings settings = Settings.getInstance();
 
-    private Integer keyClickCount = 0;
+    private Integer totalKeyClickCount = 0;
     private boolean counterInWorkFlag = false;
     private boolean counterReadyToStart = true;
     private Timeline timer;
+    private Integer[] results;
+    private Integer currentPeriod;
+    private String previousPeriodKeyClickCountText;
 
     @FXML
     private Label lbCounter;
@@ -50,13 +52,13 @@ public class MainController {
     @FXML
     private Label lbKeyboardKey;
     @FXML
-    private Button btnSetKeyboardKey;
-    @FXML
     private Label lbTimer;
     @FXML
-    private Button btnSetTimer;
-    @FXML
     private Label lbPressToStop;
+    @FXML
+    private Label lbPeriodsNumber;
+    @FXML
+    private Label lbPeriod;
 
     @FXML
     public void initialize() throws NoSuchMethodException {
@@ -75,7 +77,16 @@ public class MainController {
                                 .bean(settings)
                                 .name("timeInSeconds")
                                 .build()
-                ).asString()
+                ).asString().concat(" seconds")
+        );
+
+        lbPeriodsNumber.textProperty().bind(
+                (
+                        new JavaBeanIntegerPropertyBuilder()
+                                .bean(settings)
+                                .name("periodsNumber")
+                                .build()
+                ).asString().concat(" periods")
         );
 
     }
@@ -89,31 +100,50 @@ public class MainController {
                     counterReadyToStart = false;
 
                     lbPressKeyToStart.setVisible(false);
+                    lbPeriod.setText("Period: 1/" + settings.getPeriodsNumber().toString());
+                    lbPeriod.setVisible(true);
 
-                    if (timer != null) {
-                        timer.stop();
+                    results = new Integer[settings.getPeriodsNumber()];
+                    for(int i = 0; i < settings.getPeriodsNumber(); i++){
+                        results[i] = 0;
                     }
+
+                    currentPeriod = 1;
+                    previousPeriodKeyClickCountText = "0";
 
                     timer = new Timeline(
                             new KeyFrame(Duration.ZERO, new KeyValue(pbCounter.progressProperty(), 0)),
                             new KeyFrame(Duration.seconds(settings.getTimeInSeconds()), ae -> {
                                 //on finish
-                                counterInWorkFlag = false;
-                                bnCounterReset.setVisible(true);
+                                if(currentPeriod < settings.getPeriodsNumber()){
+                                    currentPeriod++;
+                                    lbPeriod.setText("Period: " + currentPeriod.toString() + "/" + settings.getPeriodsNumber().toString());
+                                    if(currentPeriod > 1){
+                                        previousPeriodKeyClickCountText = results[currentPeriod - 2].toString();
+                                    }
+                                    lbCounter.setText("Count (current/previous): " + results[currentPeriod - 1].toString() + "/" + previousPeriodKeyClickCountText);
+                                }
+                                else {
+                                    counterInWorkFlag = false;
+                                    bnCounterReset.setVisible(true);
+                                    timer.stop();
+                                }
 
                             }, new KeyValue(pbCounter.progressProperty(), 1))
                     );
 
-                    keyClickCount++;
-                    lbCounter.setText("Count: " + keyClickCount.toString());
+                    results[currentPeriod - 1]++;
+                    lbCounter.setText("Count (current/previous): " + results[currentPeriod - 1].toString() + "/" + previousPeriodKeyClickCountText);
 
                     pbCounter.setVisible(true);
                     lbPressToStop.setVisible(true);
 
+                    timer.setCycleCount(settings.getPeriodsNumber());
                     timer.play();
                 } else if (counterInWorkFlag == true) {
-                    keyClickCount++;
-                    lbCounter.setText("Count: " + keyClickCount.toString());
+                    results[currentPeriod - 1]++;
+                    totalKeyClickCount++;
+                    lbCounter.setText("Count (current/previous): " + results[currentPeriod - 1].toString() + "/" + previousPeriodKeyClickCountText);
                 }
             } else if (keyEvent.getCode() == KeyCode.ESCAPE && counterInWorkFlag == true) {
 
@@ -167,6 +197,25 @@ public class MainController {
                 ((Node) actionEvent.getSource()).getScene().getWindow());
         stage.show();
     }
+    public void changePeriodsNumber(ActionEvent actionEvent) {
+        Stage stage = new Stage();
+        Parent root = null;
+        try {
+            root = FXMLLoader.load(
+                    ChangeTimerController.class.getResource("ChangePeriodsNumber.fxml"));
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setScene(new Scene(root));
+
+        stage.setTitle("Change periods number");
+        stage.getIcons().add(new Image("settingsIcon64.png"));
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(
+                ((Node) actionEvent.getSource()).getScene().getWindow());
+        stage.show();
+    }
+
 
     //need refactoring into other layer
     private void counterResetService() {
@@ -174,12 +223,17 @@ public class MainController {
         counterInWorkFlag = false;
         lbPressKeyToStart.setVisible(true);
         bnCounterReset.setVisible(false);
-        keyClickCount = 0;
-        lbCounter.setText("Count: " + keyClickCount.toString());
+        totalKeyClickCount = 0;
+        lbCounter.setText("Count: " + totalKeyClickCount.toString());
         tabPane.requestFocus();
         pbCounter.setProgress(0);
         pbCounter.setVisible(false);
         lbPressToStop.setVisible(false);
+        lbPeriod.setVisible(false);
+        if (timer != null) {
+            timer.stop();
+        }
     }
+
 
 }
