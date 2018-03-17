@@ -10,20 +10,19 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Label;
-import javafx.scene.control.TabPane;
-import javafx.scene.control.Tab;
-import javafx.scene.control.ProgressBar;
-import javafx.scene.control.Button;
+import javafx.scene.control.*;
 
 import javafx.scene.image.Image;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 
 public class MainController {
@@ -48,7 +47,7 @@ public class MainController {
     @FXML
     private Label lbPressKeyToStart;
     @FXML
-    private Button bnCounterReset;
+    private HBox hBoxResultButtons;
     @FXML
     private Label lbKeyboardKey;
     @FXML
@@ -59,6 +58,8 @@ public class MainController {
     private Label lbPeriodsNumber;
     @FXML
     private Label lbPeriod;
+    @FXML
+    private TableView tblResults;
 
     @FXML
     public void initialize() throws NoSuchMethodException {
@@ -88,6 +89,19 @@ public class MainController {
                                 .build()
                 ).asString().concat(" periods")
         );
+
+        List<TableColumn> columnsList = new ArrayList<TableColumn>();
+
+        columnsList.add(new TableColumn("Фамилия"));
+        columnsList.add(new TableColumn("Имя"));
+        columnsList.add(new TableColumn("Отчество"));
+        for(int i = 0; i < settings.getPeriodsNumber(); i++){
+            columnsList.add(new TableColumn("Период " + String.valueOf(i + 1)));
+        }
+
+        for(TableColumn column: columnsList){
+            tblResults.getColumns().add(column);
+        }
 
     }
 
@@ -125,7 +139,8 @@ public class MainController {
                                 }
                                 else {
                                     counterInWorkFlag = false;
-                                    bnCounterReset.setVisible(true);
+                                    lbPressToStop.setVisible(false);
+                                    hBoxResultButtons.setVisible(true);
                                     timer.stop();
                                 }
 
@@ -202,7 +217,7 @@ public class MainController {
         Parent root = null;
         try {
             root = FXMLLoader.load(
-                    ChangeTimerController.class.getResource("ChangePeriodsNumber.fxml"));
+                    ChangePeriodsNumberController.class.getResource("ChangePeriodsNumber.fxml"));
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -216,13 +231,16 @@ public class MainController {
         stage.show();
     }
 
+    public void saveResult(ActionEvent actionEvent) {
+
+    }
 
     //need refactoring into other layer
     private void counterResetService() {
         counterReadyToStart = true;
         counterInWorkFlag = false;
         lbPressKeyToStart.setVisible(true);
-        bnCounterReset.setVisible(false);
+        hBoxResultButtons.setVisible(false);
         totalKeyClickCount = 0;
         lbCounter.setText("Count: " + totalKeyClickCount.toString());
         tabPane.requestFocus();
@@ -234,6 +252,7 @@ public class MainController {
             timer.stop();
         }
     }
+
 
 
 }

@@ -35,7 +35,7 @@ public class Settings implements Serializable{
     public void setPeriodsNumber(Integer periodsNumber){
         Integer oldPeriodsCount = this.periodsNumber;
         this.periodsNumber = periodsNumber;
-        periodsNumberChangeSupport.firePropertyChange("periodsCount", oldPeriodsCount, periodsNumber);
+        periodsNumberChangeSupport.firePropertyChange("periodsNumber", oldPeriodsCount, periodsNumber);
     }
 
     public void addPropertyChangeListener(PropertyChangeListener listener) {
