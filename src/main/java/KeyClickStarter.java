@@ -23,5 +23,7 @@ public class KeyClickStarter extends  Application{
 
     public static void main(String[] args) {
         launch(args);
+
+        System.out.println(com.sun.javafx.runtime.VersionInfo.getRuntimeVersion());
     }
 }

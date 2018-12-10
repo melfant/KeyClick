@@ -8,62 +8,46 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-         onKeyReleased="#keyReleased" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE"
-         xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
+<TabPane fx:id="tabPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" onKeyReleased="#keyReleased" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="MainController">
     <tabs>
         <Tab fx:id="tabKeyClick" text="KeyClick">
             <content>
-                <AnchorPane fx:id="counterAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0"
-                            prefWidth="200.0">
+                <AnchorPane fx:id="counterAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <Label fx:id="lbPeriod" alignment="CENTER" prefHeight="33.0" text="Periods: 0/3" visible="false"
-                               AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                        <Label fx:id="lbPeriod" alignment="CENTER" prefHeight="33.0" text="Periods: 0/3" visible="false" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label fx:id="lbPressKeyToStart" alignment="CENTER" prefHeight="33.0" prefWidth="186.0"
-                               text="Press key to start" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0"
-                               AnchorPane.topAnchor="43.0">
+                        <Label fx:id="lbPressKeyToStart" alignment="CENTER" prefHeight="33.0" prefWidth="186.0" text="Press key to start" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="43.0">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                             <padding>
-                                <Insets left="10.0" right="10.0"/>
+                                <Insets left="10.0" right="10.0" />
                             </padding>
                         </Label>
-                        <AnchorPane prefHeight="33.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0"
-                                    AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="43.0">
+                        <AnchorPane prefHeight="33.0" prefWidth="200.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="43.0">
                             <children>
-                                <ProgressBar fx:id="pbCounter" progress="0.0" visible="false"
-                                             AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0"
-                                             AnchorPane.topAnchor="7.5"/>
+                                <ProgressBar fx:id="pbCounter" progress="0.0" visible="false" AnchorPane.leftAnchor="70.0" AnchorPane.rightAnchor="70.0" AnchorPane.topAnchor="7.5" />
                             </children>
                         </AnchorPane>
-                        <Label fx:id="lbCounter" alignment="CENTER" prefHeight="33.0" prefWidth="115.0" text="Count: 0"
-                               AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="76.0">
+                        <Label fx:id="lbCounter" alignment="CENTER" prefHeight="33.0" prefWidth="115.0" text="Count: 0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="76.0">
                             <font>
-                                <Font size="18.0"/>
+                                <Font size="18.0" />
                             </font>
                         </Label>
-                        <Label fx:id="lbPressToStop" alignment="CENTER" prefHeight="33.0" prefWidth="115.0"
-                               text="Press 'Esc' to stop" visible="false" AnchorPane.leftAnchor="50.0"
-                               AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="109.0">
+                        <Label fx:id="lbPressToStop" alignment="CENTER" prefHeight="33.0" prefWidth="115.0" text="Press 'Esc' to stop" visible="false" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="109.0">
                             <font>
-                                <Font size="9.0"/>
+                                <Font size="9.0" />
                             </font>
                         </Label>
-                        <HBox fx:id="hBoxResultButtons" alignment="CENTER" layoutX="250.0" layoutY="103.0"
-                              prefHeight="33.0" prefWidth="500.0" visible="false" AnchorPane.leftAnchor="50.0"
-                              AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="109.0">
+                        <HBox fx:id="hBoxResultButtons" alignment="CENTER" layoutX="250.0" layoutY="103.0" prefHeight="33.0" prefWidth="500.0" visible="false" AnchorPane.leftAnchor="50.0" AnchorPane.rightAnchor="50.0" AnchorPane.topAnchor="109.0">
                             <children>
-                                <Button fx:id="bnCounterReset" mnemonicParsing="false" onAction="#counterReset"
-                                        prefHeight="25.0" prefWidth="100.0" text="Start again"/>
-                                <Button fx:id="bnSaveResult" onAction="#saveResult" mnemonicParsing="false" prefHeight="25.0" prefWidth="100.0"
-                                        text="Save result">
+                                <Button fx:id="bnCounterReset" mnemonicParsing="false" onAction="#counterReset" prefHeight="25.0" prefWidth="100.0" text="Start again" />
+                                <Button fx:id="bnSaveResult" mnemonicParsing="false" onAction="#saveResult" prefHeight="25.0" prefWidth="100.0" text="Save result">
                                     <HBox.margin>
-                                        <Insets left="20.0"/>
+                                        <Insets left="20.0" />
                                     </HBox.margin>
                                 </Button>
                             </children>
@@ -76,12 +60,27 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <TableView fx:id="tblResults" layoutX="147.0" layoutY="42.0" prefHeight="228.0"
-                                   prefWidth="309.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-                                   AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                            <columns>
-                            </columns>
+                        <TableView fx:id="tblResults" layoutX="147.0" layoutY="42.0" prefHeight="333.0" prefWidth="600.0" AnchorPane.bottomAnchor="38.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <columns>
+                        <TableColumn fx:id="tblColLastName" prefWidth="89.0" text="Фамилия" />
+                        <TableColumn fx:id="tblColFirstName" prefWidth="74.0" text="Имя" />
+                        <TableColumn fx:id="tblColMiddleName" prefWidth="77.0" text="Отчество" />
+                        <TableColumn fx:id="tblColPeriods" prefWidth="83.0" text="Кол-во\длительность периодов" />
+                        <TableColumn fx:id="tblColResult" prefWidth="224.0" text="Результат" />
+                     </columns>
                         </TableView>
+                  <HBox layoutY="338.0" prefHeight="36.0" prefWidth="600.0">
+                     <children>
+                        <Button fx:id="bnLoadResultsToExcel" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" onAction="#loadTableToExcel" text="Load to Excel">
+                           <opaqueInsets>
+                              <Insets left="5.0" />
+                           </opaqueInsets>
+                           <HBox.margin>
+                              <Insets bottom="5.0" left="5.0" />
+                           </HBox.margin>
+                        </Button>
+                     </children>
+                  </HBox>
                     </children>
                 </AnchorPane>
             </content>
@@ -90,19 +89,12 @@
             <content>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                     <children>
-                        <Label fx:id="lbKeyboardKey" layoutX="181.0" layoutY="39.0" prefHeight="25.0" prefWidth="102.0"
-                               text="Keyboard key"/>
-                        <Button fx:id="btnSetKeyboardKey" layoutX="44.0" layoutY="39.0" mnemonicParsing="false"
-                                onAction="#changeKeyboardKey" prefHeight="25.0" prefWidth="100.0" text="Change key"/>
-                        <Button fx:id="btnSetTimer" layoutX="44.0" layoutY="118.0" mnemonicParsing="false"
-                                onAction="#changeTimer" prefHeight="25.0" prefWidth="100.0" text="Change timer"/>
-                        <Label fx:id="lbTimer" layoutX="181.0" layoutY="118.0" prefHeight="25.0" prefWidth="102.0"
-                               text="5 seconds"/>
-                        <Button fx:id="btnSetPeriodsNumber" layoutX="44.0" layoutY="78.0" mnemonicParsing="false"
-                                onAction="#changePeriodsNumber" prefHeight="25.0" prefWidth="100.0"
-                                text="Change periods"/>
-                        <Label fx:id="lbPeriodsNumber" layoutX="181.0" layoutY="78.0" prefHeight="25.0"
-                               prefWidth="102.0" text="3 periods"/>
+                        <Label fx:id="lbKeyboardKey" layoutX="181.0" layoutY="39.0" prefHeight="25.0" prefWidth="102.0" text="Keyboard key" />
+                        <Button fx:id="btnSetKeyboardKey" layoutX="44.0" layoutY="39.0" mnemonicParsing="false" onAction="#changeKeyboardKey" prefHeight="25.0" prefWidth="100.0" text="Change key" />
+                        <Button fx:id="btnSetTimer" layoutX="44.0" layoutY="118.0" mnemonicParsing="false" onAction="#changeTimer" prefHeight="25.0" prefWidth="100.0" text="Change timer" />
+                        <Label fx:id="lbTimer" layoutX="181.0" layoutY="118.0" prefHeight="25.0" prefWidth="102.0" text="5 seconds" />
+                        <Button fx:id="btnSetPeriodsNumber" layoutX="44.0" layoutY="78.0" mnemonicParsing="false" onAction="#changePeriodsNumber" prefHeight="25.0" prefWidth="100.0" text="Change periods" />
+                        <Label fx:id="lbPeriodsNumber" layoutX="181.0" layoutY="78.0" prefHeight="25.0" prefWidth="102.0" text="3 periods" />
                     </children>
                 </AnchorPane>
             </content>

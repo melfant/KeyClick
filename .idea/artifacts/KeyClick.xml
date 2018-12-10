@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="javafx" name="KeyClick">
+  <artifact type="javafx" build-on-make="true" name="KeyClick">
     <output-path>$PROJECT_DIR$/out/artifacts/KeyClick</output-path>
     <properties id="javafx-properties">
       <options>
@@ -8,7 +8,6 @@
         <option name="htmlPlaceholderId" value="" />
         <option name="icons">
           <JavaFxApplicationIcons>
-            <option name="linuxIcon" value="$PROJECT_DIR$/src/main/resources/mainIcon64.png" />
             <option name="windowsIcon" value="$PROJECT_DIR$/src/main/resources/mainIcon64.ico" />
           </JavaFxApplicationIcons>
         </option>
@@ -22,6 +21,12 @@
       <element id="archive" name="KeyClick.jar">
         <element id="module-output" name="KeyClick" />
       </element>
+      <element id="library" level="project" name="Maven: commons-codec:commons-codec:1.9" />
+      <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml-schemas:3.12" />
+      <element id="library" level="project" name="Maven: org.apache.poi:poi-ooxml:3.12" />
+      <element id="library" level="project" name="Maven: org.apache.poi:poi:3.12" />
+      <element id="library" level="project" name="Maven: org.apache.xmlbeans:xmlbeans:2.6.0" />
+      <element id="library" level="project" name="Maven: stax:stax-api:1.0.1" />
     </root>
   </artifact>
 </component>

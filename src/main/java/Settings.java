@@ -10,7 +10,7 @@ public class Settings implements Serializable{
 
     private static final KeyCode defaultKeyCode = KeyCode.SPACE;
     private static final Integer defaultTimeInSeconds = 5;
-    private static final Integer defaultPeriodsNumber = 3;
+    private static final Integer defaultPeriodsNumber = 6;
 
     private KeyCode keyCode;
     private Integer timeInSeconds;

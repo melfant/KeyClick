@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="170.0" prefWidth="300.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="SaveResultController">
+   <children>
+      <VBox alignment="CENTER" layoutX="26.0" layoutY="22.0" prefHeight="45.0" prefWidth="260.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="22.0">
+         <children>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="lbLastName" prefHeight="27.0" prefWidth="132.0" text="Фамилия">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="tfLastName" alignment="CENTER_RIGHT" />
+               </children>
+            </HBox>
+            <HBox prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="lbFirstName" prefHeight="27.0" prefWidth="132.0" text="Имя">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="tfFirstName" alignment="CENTER_RIGHT" />
+               </children>
+            </HBox>
+            <HBox layoutX="10.0" layoutY="37.0" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Label fx:id="lbMiddleName" prefHeight="27.0" prefWidth="132.0" text="Отчество">
+                     <font>
+                        <Font size="18.0" />
+                     </font>
+                     <HBox.margin>
+                        <Insets top="5.0" />
+                     </HBox.margin>
+                  </Label>
+                  <TextField fx:id="tfMiddleName" alignment="CENTER_RIGHT" />
+               </children>
+            </HBox>
+            <HBox alignment="TOP_CENTER" prefHeight="100.0" prefWidth="200.0">
+               <children>
+                  <Button fx:id="bnSave" alignment="CENTER" onAction="#addResultToTable" contentDisplay="CENTER" mnemonicParsing="false"  prefHeight="25.0" prefWidth="72.0" text="Save" />
+               </children>
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </HBox>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

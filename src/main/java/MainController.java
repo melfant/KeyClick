@@ -2,9 +2,13 @@ import javafx.animation.KeyFrame;
 
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Platform;
 import javafx.beans.property.adapter.JavaBeanIntegerPropertyBuilder;
 import javafx.beans.property.adapter.JavaBeanObjectPropertyBuilder;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -12,21 +16,32 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
+import javafx.scene.input.*;
 import javafx.scene.layout.HBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.util.Duration;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
+import org.apache.poi.ss.usermodel.Row;
+import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 
 public class MainController {
     Settings settings = Settings.getInstance();
+    Results resultsSingleton = Results.getInstance();
 
     private Integer totalKeyClickCount = 0;
     private boolean counterInWorkFlag = false;
@@ -35,6 +50,8 @@ public class MainController {
     private Integer[] results;
     private Integer currentPeriod;
     private String previousPeriodKeyClickCountText;
+
+    private SaveResultController saveResultController;
 
     @FXML
     private Label lbCounter;
@@ -58,8 +75,10 @@ public class MainController {
     private Label lbPeriodsNumber;
     @FXML
     private Label lbPeriod;
+
     @FXML
-    private TableView tblResults;
+    private TableView<Result> tblResults;
+
 
     @FXML
     public void initialize() throws NoSuchMethodException {
@@ -90,18 +109,30 @@ public class MainController {
                 ).asString().concat(" periods")
         );
 
-        List<TableColumn> columnsList = new ArrayList<TableColumn>();
+        //results table
+        tblResults.getSelectionModel().setSelectionMode(SelectionMode.MULTIPLE);
 
-        columnsList.add(new TableColumn("Фамилия"));
-        columnsList.add(new TableColumn("Имя"));
-        columnsList.add(new TableColumn("Отчество"));
-        for(int i = 0; i < settings.getPeriodsNumber(); i++){
-            columnsList.add(new TableColumn("Период " + String.valueOf(i + 1)));
-        }
+        final KeyCodeCombination keyCodeCopy = new KeyCodeCombination(KeyCode.C, KeyCombination.CONTROL_ANY);
+        tblResults.setOnKeyPressed(event -> {
+            if (keyCodeCopy.match(event)) {
+                copySelectionToClipboard(tblResults);
+            }
+        });
 
-        for(TableColumn column: columnsList){
-            tblResults.getColumns().add(column);
-        }
+
+        MenuItem item = new MenuItem("Copy");
+        item.setOnAction(new EventHandler<ActionEvent>() {
+            @Override
+            public void handle(ActionEvent event) {
+                copySelectionToClipboard(tblResults);
+            }
+        });
+        ContextMenu menu = new ContextMenu();
+        menu.getItems().add(item);
+        tblResults.setContextMenu(menu);
+
+        refreshResultsTable();
+
 
     }
 
@@ -231,9 +262,44 @@ public class MainController {
         stage.show();
     }
 
-    public void saveResult(ActionEvent actionEvent) {
+    public void saveResult(ActionEvent actionEvent) throws MalformedURLException {
+        Stage stage = new Stage();
 
+        FXMLLoader loader = new FXMLLoader(SaveResultController.class.getResource("SaveResults.fxml"));
+
+        Parent root = null;
+        try {
+            root = loader.load();
+            saveResultController = loader.getController();
+            saveResultController.setMainController(this);
+
+            String periods = settings.getPeriodsNumber().toString()
+                    .concat("\\")
+                    .concat(settings.getTimeInSeconds().toString());
+
+            String resultsString = "";
+            for(Integer i = 0; i < results.length; i++){
+                resultsString = resultsString.concat(results[i].toString()).concat(";");
+            }
+
+            saveResultController.setLastResult(new Result(null, null, null,
+                    periods,
+                    resultsString));
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        stage.setScene(new Scene(root));
+
+
+        stage.setTitle("Save results");
+        stage.getIcons().add(new Image("mainIcon64.png"));
+        stage.initModality(Modality.WINDOW_MODAL);
+        stage.initOwner(
+                ((Node) actionEvent.getSource()).getScene().getWindow());
+        stage.show();
     }
+
 
     //need refactoring into other layer
     private void counterResetService() {
@@ -253,6 +319,106 @@ public class MainController {
         }
     }
 
+    @FXML
+    private TableColumn<Result, String> tblColLastName;
+    @FXML
+    private TableColumn<Result, String> tblColFirstName;
+    @FXML
+    private TableColumn<Result, String> tblColMiddleName;
+    @FXML
+    private TableColumn<Result, String> tblColPeriods;
+    @FXML
+    private TableColumn<Result, String> tblColResult;
 
+    private ObservableList<Result> resultObservableList = FXCollections.observableArrayList();
+
+
+    public void refreshResultsTable(){
+        resultObservableList = FXCollections.observableArrayList(resultsSingleton.getResultList());
+
+        tblColLastName.setCellValueFactory(new PropertyValueFactory<Result, String>("lastName"));
+        tblColFirstName.setCellValueFactory(new PropertyValueFactory<Result, String>("firstName"));
+        tblColMiddleName.setCellValueFactory(new PropertyValueFactory<Result, String>("middleName"));
+        tblColPeriods.setCellValueFactory(new PropertyValueFactory<Result, String>("periods"));
+        tblColResult.setCellValueFactory(new PropertyValueFactory<Result, String>("result"));
+
+
+        tblResults.setItems(resultObservableList);
+
+
+
+        tblResults.refresh();
+        refresh_table(tblResults);
+
+    }
+
+    public static void refresh_table(TableView table)
+    {
+        for (int i = 0; i < table.getColumns().size(); i++) {
+            ((TableColumn)(table.getColumns().get(i))).setVisible(false);
+            ((TableColumn)(table.getColumns().get(i))).setVisible(true);
+        }
+    }
+
+    @SuppressWarnings("rawtypes")
+    public void copySelectionToClipboard(final TableView<?> table) {
+        final Set<Integer> rows = new TreeSet<>();
+        for (final TablePosition tablePosition : table.getSelectionModel().getSelectedCells()) {
+            rows.add(tablePosition.getRow());
+        }
+        final StringBuilder strb = new StringBuilder();
+        boolean firstRow = true;
+        for (final Integer row : rows) {
+            if (!firstRow) {
+                strb.append('\n');
+            }
+            firstRow = false;
+            boolean firstCol = true;
+            for (final TableColumn<?, ?> column : table.getColumns()) {
+                if (!firstCol) {
+                    strb.append('\t');
+                }
+                firstCol = false;
+                final Object cellData = column.getCellData(row);
+                strb.append(cellData == null ? "" : cellData.toString());
+            }
+        }
+        final ClipboardContent clipboardContent = new ClipboardContent();
+        clipboardContent.putString(strb.toString());
+        Clipboard.getSystemClipboard().setContent(clipboardContent);
+    }
+
+
+    public void loadTableToExcel() throws IOException {
+        Workbook workbook = new HSSFWorkbook();
+        Sheet spreadsheet = workbook.createSheet("sample");
+
+        Row row = spreadsheet.createRow(0);
+
+        for (int j = 0; j < tblResults.getColumns().size(); j++) {
+            row.createCell(j).setCellValue(tblResults.getColumns().get(j).getText());
+        }
+
+        for (int i = 0; i < tblResults.getItems().size(); i++) {
+            row = spreadsheet.createRow(i + 1);
+            for (int j = 0; j < tblResults.getColumns().size(); j++) {
+                if(tblResults.getColumns().get(j).getCellData(i) != null) {
+                    row.createCell(j).setCellValue(tblResults.getColumns().get(j).getCellData(i).toString());
+                }
+                else {
+                    row.createCell(j).setCellValue("");
+                }
+            }
+        }
+
+        String filename = "results "
+                .concat(String.valueOf(LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH-mm-ss"))))
+                .concat(".xls");
+
+
+        FileOutputStream fileOut = new FileOutputStream(filename);
+        workbook.write(fileOut);
+        fileOut.close();
+    }
 
 }
