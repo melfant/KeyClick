@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<jnlp spec="1.0" xmlns:jfx="http://javafx.com" href="KeyClick.jnlp">
+  <information>
+    <title>KeyClick</title>
+    <vendor>Unknown</vendor>
+    <description>KeyClick</description>
+    <offline-allowed/>
+  </information>
+  <resources>
+    <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
+    <jar href="KeyClick.jar" size="31109" download="eager" />
+    <jar href="commons-codec-1.9.jar" size="263965" download="eager" />
+    <jar href="poi-3.12.jar" size="2136557" download="eager" />
+    <jar href="poi-ooxml-3.12.jar" size="1222491" download="eager" />
+    <jar href="poi-ooxml-schemas-3.12.jar" size="5617718" download="eager" />
+    <jar href="stax-api-1.0.1.jar" size="26514" download="eager" />
+    <jar href="xmlbeans-2.6.0.jar" size="2730866" download="eager" />
+  </resources>
+  <jfx:javafx-desc  width="600" height="400" main-class="KeyClickStarter"  name="KeyClick" />
+  <update check="background"/>
+</jnlp>
